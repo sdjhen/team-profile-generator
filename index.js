@@ -6,12 +6,16 @@ const path = require('path');
 const fs = require('fs');
 
 const OUTPUT_DIR = path.resolve(__dirname, 'output');
+
+// check if output directory exists || create if not
+if (!fs.existsSync(OUTPUT_DIR)) {
+  fs.mkdirSync('output');
+}
+
 const outputPath = path.join(OUTPUT_DIR, 'team.html');
 
 const render = require('./src/page-template.js');
 const team = [];
-
-// TODO: Write Code to gather information about the development team members, and render the HTML file.
 
 function createEngineer(team) {
   inquirer
@@ -47,7 +51,7 @@ function createEngineer(team) {
         engineerDetails.name,
         engineerDetails.id,
         engineerDetails.email,
-        engineerDetails.githubUsername
+        engineerDetails.github
       );
       team.push(engineer);
       createTeam(team);
@@ -113,6 +117,14 @@ function createTeam(team) {
         createEngineer(team);
       } else if (choice.memberChoice === 'Intern') {
         createIntern(team);
+      } else {
+        const html = render(team); // will be HTML file as string
+        // write html to a file  using fs library
+        fs.writeFile(outputPath, html, (err) => {
+          if (err) {
+            console.log('Failed to write HTML file');
+          }
+        });
       }
     });
 }
@@ -157,3 +169,9 @@ function createManager(team) {
       createTeam(team);
     });
 }
+
+function start() {
+  createManager(team);
+}
+
+start();
