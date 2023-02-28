@@ -1,5 +1,3 @@
-#!/usr/bin/env nodec
-
 const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
@@ -14,6 +12,29 @@ const render = require('./src/page-template.js');
 const teamArr = [];
 
 // TODO: Write Code to gather information about the development team members, and render the HTML file.
+
+function createTeam(team) {
+  inquirer
+    .prompt([
+      {
+        type: 'list',
+        name: 'memberChoice',
+        message: 'What type of team member do you want to add?',
+        choices: [
+          'Engineer',
+          'Intern',
+          "I don't want to add any more team members",
+        ],
+      },
+    ])
+    .then((choice) => {
+      if (choice.memberChoice === 'Engineer') {
+        createEngineer(team);
+      } else if (choice.memberChoice === 'Intern') {
+        createIntern(team);
+      }
+    });
+}
 
 function createManager(team) {
   inquirer
@@ -55,4 +76,3 @@ function createManager(team) {
       console.log(manager);
     });
 }
-createManager();
