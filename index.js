@@ -9,9 +9,90 @@ const OUTPUT_DIR = path.resolve(__dirname, 'output');
 const outputPath = path.join(OUTPUT_DIR, 'team.html');
 
 const render = require('./src/page-template.js');
-const teamArr = [];
+const team = [];
 
 // TODO: Write Code to gather information about the development team members, and render the HTML file.
+
+function createEngineer(team) {
+  inquirer
+    .prompt([
+      // Engineer name
+      {
+        type: 'input',
+        name: 'name',
+        message: "What is the Engineer's name?",
+      },
+      // Engineer id
+      {
+        type: 'input',
+        name: 'id',
+        message: "What are the Engineer's ID credentials?",
+      },
+      // Engineer email
+      {
+        type: 'input',
+        name: 'email',
+        message: "What is the Engineer's Email?",
+      },
+
+      // Engineer GitHub username
+      {
+        type: 'input',
+        name: 'github',
+        message: "What is the Engineer's Github Username?",
+      },
+    ])
+    .then((engineerDetails) => {
+      const engineer = new Engineer(
+        engineerDetails.name,
+        engineerDetails.id,
+        engineerDetails.email,
+        engineerDetails.githubUsername
+      );
+      team.push(engineer);
+      createTeam(team);
+    });
+}
+
+function createIntern(team) {
+  inquirer
+    .prompt([
+      // Intern name
+      {
+        type: 'input',
+        name: 'name',
+        message: "What is the intern's name?",
+      },
+      // Intern id
+      {
+        type: 'input',
+        name: 'ID',
+        message: "What are the Intern's ID credentials?",
+      },
+      // Intern email
+      {
+        type: 'input',
+        name: 'email',
+        message: "What is the Intern's Email?",
+      },
+      // Intern school
+      {
+        type: 'input',
+        name: 'school',
+        message: "What is the Intern's School?",
+      },
+    ])
+    .then((internDetails) => {
+      const intern = new Intern(
+        internDetails.name,
+        internDetails.id,
+        internDetails.email,
+        internDetails.school
+      );
+      team.push(intern);
+      createTeam(team); // at this point we add an intern to the team array
+    });
+}
 
 function createTeam(team) {
   inquirer
@@ -72,7 +153,7 @@ function createManager(team) {
         managerDetails.email,
         managerDetails.officeNumber
       );
-      teamArr.push(manager);
-      console.log(manager);
+      team.push(manager);
+      createTeam(team);
     });
 }
