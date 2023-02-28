@@ -57,6 +57,7 @@ function createEngineer(team) {
       createTeam(team);
     });
 }
+6;
 
 function createIntern(team) {
   inquirer
@@ -70,7 +71,7 @@ function createIntern(team) {
       // Intern id
       {
         type: 'input',
-        name: 'ID',
+        name: 'id',
         message: "What are the Intern's ID credentials?",
       },
       // Intern email
