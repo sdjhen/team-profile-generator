@@ -20,7 +20,7 @@ Please enter the members of the Team using the CLI and the application will auto
 
 ## Credits
 
-N/A
+https://www.youtube.com/watch?v=5hift2w4t-Q
 
 ## Licence
 
